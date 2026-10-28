@@ -1,16 +1,39 @@
+/* Detect refresh before the page renders */
+const navigation = performance.getEntriesByType("navigation")[0];
+const isRefresh = navigation?.type === "reload";
+
+if (isRefresh) {
+  document.documentElement.classList.add("no-entrance-animation");
+}
+
 // Loader for website
-document.addEventListener("DOMContentLoaded", function () {
-  // Simulate a loading time with a timeout
-  setTimeout(function () {
-    // Hide the loader
-    document.getElementById("loader").style.display = "none";
-  }, 3000); // 3000ms = 3 seconds
-});
-
-// Animation script for when th viewport of the user come across an existing content then it will appear
 document.addEventListener("DOMContentLoaded", () => {
-  const elements = document.querySelectorAll(".onScroll");
+  const loader = document.getElementById("loader");
 
+  if (loader) {
+    if (isRefresh) {
+      // Skip the loader on refresh
+      loader.style.display = "none";
+    } else {
+      // Show loader for 3 seconds on normal navigation
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 3000);
+    }
+  }
+
+  // Select both animation types
+  const elements = document.querySelectorAll(".onScroll, .onLoad");
+
+  if (isRefresh) {
+    // Show elements immediately without entrance animations
+    elements.forEach((element) => {
+      element.classList.add("visible");
+    });
+    return;
+  }
+
+  // Observe elements as they enter the viewport
   const observer = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
@@ -21,33 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     {
-      threshold: 0.2, // Adjust the threshold as needed
-    }
-  );
-
-  elements.forEach((element) => {
-    observer.observe(element);
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const elements = document.querySelectorAll(".onLoad");
-
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
+      threshold: 0.2,
     },
-    {
-      threshold: 0.2, // Adjust the threshold as needed
-    }
   );
 
-  elements.forEach((element) => {
-    observer.observe(element);
-  });
+  elements.forEach((element) => observer.observe(element));
 });
