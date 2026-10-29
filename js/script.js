@@ -418,6 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (project.videos.length > 0) {
         const videoGallery = document.createElement("div");
         const videoTitle = document.createElement("p");
+        const videoStage = document.createElement("div");
         const videoFrame = document.createElement("iframe");
         const controls = document.createElement("div");
         const previousButton = document.createElement("button");
@@ -429,6 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
         videoGallery.dataset.videoItems = JSON.stringify(project.videos);
         videoTitle.className = "project-video-title";
         videoTitle.setAttribute("aria-live", "polite");
+        videoStage.className = "project-video-stage";
         videoFrame.className = "project-video";
         videoFrame.loading = "lazy";
         videoFrame.allow = "autoplay; encrypted-media; picture-in-picture";
@@ -449,7 +451,8 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.textContent = "→";
         controls.append(previousButton, counter, nextButton);
         videoList.className = "project-video-list";
-        videoGallery.append(videoTitle, videoFrame, controls, videoList);
+        videoStage.append(videoFrame);
+        videoGallery.append(videoTitle, videoStage, controls, videoList);
         preview.append(videoGallery);
         updateVideoGallery(videoGallery, 0);
       } else {
