@@ -22,7 +22,7 @@ const projectDetails = {
     previews: [],
     videos: [
       {
-        src: "assets/img/projects_preview/SteelSync/steelsync-promotional.mp4",
+        src: "https://drive.google.com/file/d/1uCi3OpDvYwPkQYXjjB876ZQrI3EjxGe3/preview",
         title: "SteelSync promotional video",
       },
     ],
@@ -140,7 +140,7 @@ const projectDetails = {
     ],
     videos: [
       {
-        src: "assets/img/projects_preview/Bloomi/bloomi-guide.mp4",
+        src: "https://drive.google.com/file/d/1wsRWeL3erJnSLI8lIB75YFqKe3NK_iDA/preview",
         title: "BLOOMI Guide",
       },
     ],
@@ -184,10 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
       "--project-dialog-scroll-top",
     );
     window.scrollTo({ top: pageScrollPosition, behavior: "instant" });
-    const video = projectModalContent?.querySelector("video");
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
+    const videoFrame = projectModalContent?.querySelector(
+      "iframe.project-video",
+    );
+    if (videoFrame) {
+      videoFrame.src = "about:blank";
     }
   };
 
@@ -308,8 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const videos = JSON.parse(gallery.dataset.videoItems);
       const index = Math.max(0, Math.min(requestedIndex, videos.length - 1));
       const item = videos[index];
-      const video = gallery.querySelector("video");
-      const source = video.querySelector("source");
+      const videoFrame = gallery.querySelector("iframe");
       const title = gallery.querySelector(".project-video-title");
       const counter = gallery.querySelector(".project-video-count");
       const previousButton = gallery.querySelector(
@@ -317,11 +317,14 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const nextButton = gallery.querySelector('[data-video-action="next"]');
       const videoList = gallery.querySelector(".project-video-list");
-
       gallery.dataset.currentVideoIndex = index;
-      source.src = item.src;
-      source.type = item.src.toLowerCase().endsWith(".mp4") ? "video/mp4" : "";
-      video.load();
+      const driveFileId = item.src.match(
+        /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([^/?&#]+)/i,
+      )?.[1];
+      videoFrame.src = driveFileId
+        ? `https://drive.google.com/file/d/${driveFileId}/preview`
+        : item.src;
+      videoFrame.title = item.title;
       title.textContent = item.title;
       counter.textContent = `Video ${index + 1} of ${videos.length}`;
       previousButton.disabled = index === 0;
@@ -415,8 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (project.videos.length > 0) {
         const videoGallery = document.createElement("div");
         const videoTitle = document.createElement("p");
-        const video = document.createElement("video");
-        const source = document.createElement("source");
+        const videoFrame = document.createElement("iframe");
         const controls = document.createElement("div");
         const previousButton = document.createElement("button");
         const counter = document.createElement("span");
@@ -427,10 +429,11 @@ document.addEventListener("DOMContentLoaded", () => {
         videoGallery.dataset.videoItems = JSON.stringify(project.videos);
         videoTitle.className = "project-video-title";
         videoTitle.setAttribute("aria-live", "polite");
-        video.className = "project-video";
-        video.controls = true;
-        video.preload = "metadata";
-        video.append(source);
+        videoFrame.className = "project-video";
+        videoFrame.loading = "lazy";
+        videoFrame.allow = "autoplay; encrypted-media; picture-in-picture";
+        videoFrame.allowFullscreen = true;
+        videoFrame.referrerPolicy = "strict-origin-when-cross-origin";
         controls.className = "project-video-controls";
         previousButton.type = "button";
         previousButton.className = "project-preview-step";
@@ -446,7 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.textContent = "→";
         controls.append(previousButton, counter, nextButton);
         videoList.className = "project-video-list";
-        videoGallery.append(videoTitle, video, controls, videoList);
+        videoGallery.append(videoTitle, videoFrame, controls, videoList);
         preview.append(videoGallery);
         updateVideoGallery(videoGallery, 0);
       } else {

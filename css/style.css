@@ -1056,9 +1056,12 @@ section {
     }
 
     .project-video {
+      display: block;
       width: 100%;
-      max-height: 360px;
+      aspect-ratio: 16 / 9;
+      height: auto;
       background-color: #1b1420;
+      border: 0;
       border-radius: 14px;
     }
 
