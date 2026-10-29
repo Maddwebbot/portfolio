@@ -18,7 +18,7 @@ const projectDetails = {
       "Javascript",
       "Vite",
     ],
-    features: ["Php"],
+    features: ["Details coming soon."],
     previews: [],
     videos: [
       {
