@@ -292,6 +292,7 @@ section {
     align-items: center;
     justify-content: center;
     font-weight: lighter;
+    opacity: 50%;
   }
   .img-cont {
     grid-area: img;
