@@ -51,13 +51,13 @@ const projectDetails = {
       "assets/img/projects_preview/BookLing/Home Screen.png",
       "assets/img/projects_preview/BookLing/Home Screen_2.png",
       "assets/img/projects_preview/BookLing/Book Management.png",
+      "assets/img/projects_preview/BookLing/Book Management_Add.png",
       "assets/img/projects_preview/BookLing/Book Management_Edit.png",
-      "assets/img/projects_preview/BookLing/Book Management_Popup.png",
-      "assets/img/projects_preview/BookLing/Transaction List.png",
       "assets/img/projects_preview/BookLing/Transaction_Book Selection.png",
+      "assets/img/projects_preview/BookLing/Transaction List.png",
+      "assets/img/projects_preview/BookLing/Book Request.png",
       "assets/img/projects_preview/BookLing/Reports.png",
       "assets/img/projects_preview/BookLing/Reports_2.png",
-      "assets/img/projects_preview/BookLing/Book Request.png",
       "assets/img/projects_preview/BookLing/Request Report.png",
       "assets/img/projects_preview/BookLing/Request Report_2.png",
       "assets/img/projects_preview/BookLing/Settings.png",
@@ -67,8 +67,8 @@ const projectDetails = {
     videos: [],
     links: [
       {
-        label: "GitHub project link",
-        href: "https://github.com/Maddwebbot/LMS.git",
+        label: "BookLing Download",
+        href: "https://github.com/Maddwebbot/LMS/releases/tag/v1.0.0",
       },
     ],
   },
@@ -97,30 +97,28 @@ const projectDetails = {
     ],
     previews: [
       "assets/img/projects_preview/Bloomi/Login 1.0.png",
-      "assets/img/projects_preview/Bloomi/Login Attempt Page 1.4.png",
-      "assets/img/projects_preview/Bloomi/Login Attempt Page 1.4.1.png",
       "assets/img/projects_preview/Bloomi/OTP Page 1.1.png",
       "assets/img/projects_preview/Bloomi/OTP Email Sent 1.1.1.png",
       "assets/img/projects_preview/Bloomi/Admin Dashboard 1.2.png",
-      "assets/img/projects_preview/Bloomi/Admin Dashboard 1.2.1png.png",
+      "assets/img/projects_preview/Bloomi/Admin Dashboard 1.2.1.png",
+      "assets/img/projects_preview/Bloomi/Login Attempt Page 1.4.png",
+      "assets/img/projects_preview/Bloomi/Login Attempt Page 1.4.1.png",
       "assets/img/projects_preview/Bloomi/Account Page 1.3.png",
-      "assets/img/projects_preview/Bloomi/Account Page 1.3.1png.png",
-      "assets/img/projects_preview/Bloomi/Professor Dashboard 2.0.png",
-      "assets/img/projects_preview/Bloomi/Professor Dashboard 2.0.1.png",
-      "assets/img/projects_preview/Bloomi/TOS 1.0.png",
-      "assets/img/projects_preview/Bloomi/TOS 1.1.png",
-      "assets/img/projects_preview/Bloomi/tosupdated.png",
-      "assets/img/projects_preview/Bloomi/File Page 2.1.png",
-      "assets/img/projects_preview/Bloomi/File Page (Existing File Popup) 2.1.2.png",
-      "assets/img/projects_preview/Bloomi/File Page (Upload Popup) 2.1.1.png",
-      "assets/img/projects_preview/Bloomi/File Page (Process Popup) 2.1.2.png",
+      "assets/img/projects_preview/Bloomi/Account Page 1.3.1.png",
       "assets/img/projects_preview/Bloomi/Uploaded File Page 1.5.png",
       "assets/img/projects_preview/Bloomi/Uploaded File Page (tos popup) 1.5.1.png",
-      "assets/img/projects_preview/Bloomi/Validatio Page 1.6.png",
-      "assets/img/projects_preview/Bloomi/Validatio Page (Parsed Log) 1.6.1.png",
-      "assets/img/projects_preview/Bloomi/Validatio Page (Question Log) 1.6.2.png",
+      "assets/img/projects_preview/Bloomi/Validation Page 1.6.png",
+      "assets/img/projects_preview/Bloomi/Validation Page (Parsed Log) 1.6.1.png",
+      "assets/img/projects_preview/Bloomi/Validation Page (Question Log) 1.6.2.png",
       "assets/img/projects_preview/Bloomi/Export History Page 1.7.png",
       "assets/img/projects_preview/Bloomi/Export History Page 1.7.1.png",
+      "assets/img/projects_preview/Bloomi/Professor Dashboard 2.0.png",
+      "assets/img/projects_preview/Bloomi/Professor Dashboard 2.0.1.png",
+      "assets/img/projects_preview/Bloomi/File Page 2.1.png",
+      "assets/img/projects_preview/Bloomi/File Page (Upload Popup) 2.1.1.png",
+      "assets/img/projects_preview/Bloomi/File Page (Existing File Popup) 2.1.2.png",
+      "assets/img/projects_preview/Bloomi/File Page (Process Popup) 2.1.2.png",
+      "assets/img/projects_preview/Bloomi/TOS modem.png",
       "assets/img/projects_preview/Bloomi/Parse Page 2.2.png",
       "assets/img/projects_preview/Bloomi/Parse Page 2.2.1.png",
       "assets/img/projects_preview/Bloomi/Parse Page 2.2.2.png",
@@ -142,6 +140,8 @@ const projectDetails = {
       "assets/img/projects_preview/Bloomi/Answer_Key 1.1.png",
       "assets/img/projects_preview/Bloomi/Answer_Key 1.2.png",
       "assets/img/projects_preview/Bloomi/Answer_Key 1.3.png",
+      "assets/img/projects_preview/Bloomi/TOS 1.0.png",
+      "assets/img/projects_preview/Bloomi/TOS 1.1.png",
     ],
     videos: [
       {
@@ -151,8 +151,7 @@ const projectDetails = {
     ],
     links: [
       {
-        label: "GitHub project link",
-        href: "https://github.com/Maddwebbot/bloomi.git",
+        label: "Private project — source code is not publicly available.",
       },
     ],
   },
@@ -308,6 +307,13 @@ document.addEventListener("DOMContentLoaded", () => {
         thumbnailButton.append(thumbnailImage);
         thumbnailList.append(thumbnailButton);
       }
+    };
+
+    const movePreviewGallery = (gallery, offset) => {
+      updatePreviewGallery(
+        gallery,
+        Number(gallery.dataset.currentIndex) + offset,
+      );
     };
 
     const updateVideoGallery = (gallery, requestedIndex) => {
@@ -556,6 +562,28 @@ document.addEventListener("DOMContentLoaded", () => {
       if (event.key === "Escape") {
         event.preventDefault();
         closeProjectDialog();
+        return;
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        const target = event.target;
+        if (
+          target instanceof HTMLElement &&
+          (target.isContentEditable ||
+            target instanceof HTMLInputElement ||
+            target instanceof HTMLTextAreaElement ||
+            target instanceof HTMLSelectElement)
+        ) {
+          return;
+        }
+
+        const gallery = projectModalContent.querySelector(
+          ".project-preview-gallery",
+        );
+        if (gallery instanceof HTMLDivElement) {
+          event.preventDefault();
+          movePreviewGallery(gallery, event.key === "ArrowRight" ? 1 : -1);
+        }
       }
     });
 
@@ -670,6 +698,26 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.key === "Escape") {
           event.preventDefault();
           projectImageDialog.close();
+          return;
+        }
+
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          const gallery = projectModalContent.querySelector(
+            ".project-preview-gallery",
+          );
+          if (gallery instanceof HTMLDivElement) {
+            event.preventDefault();
+            movePreviewGallery(gallery, event.key === "ArrowRight" ? 1 : -1);
+
+            const imageButton = gallery.querySelector(
+              ".project-preview-image",
+            );
+            const previewImage = imageButton.querySelector("img");
+            projectImageFull.src = imageButton.dataset.fullImage;
+            projectImageFull.alt = previewImage.alt;
+            projectImageCaption.textContent =
+              imageButton.dataset.imageCaption ?? "";
+          }
         }
       });
     } else {

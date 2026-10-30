@@ -136,7 +136,7 @@ body {
     291px auto 220px 6em;
 }
 
-/* Scrollbar */
+/*Body Scrollbar */
 body::-webkit-scrollbar {
   width: 10px;
 }
@@ -803,12 +803,6 @@ section {
         }
       }
     }
-
-    /* p {
-      text-transform: uppercase;
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      color: var(--orange);
-    } */
   }
 }
 .project-dialog {
@@ -821,7 +815,9 @@ section {
   color: var(--violet);
   background-color: var(--white);
   border: 1px solid rgb(50 1 47 / 12%);
-  border-radius: 24px;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+
   box-shadow: 0 24px 80px rgb(20 0 25 / 30%);
 
   &::backdrop {
@@ -1029,7 +1025,6 @@ section {
 
         &:hover,
         &:focus-visible {
-          transform: translateY(-2px);
           border-color: var(--violet);
         }
 
@@ -1061,8 +1056,12 @@ section {
     }
 
     .project-video-stage {
-      position: relative;
+      display: grid;
+      place-items: center;
       width: 100%;
+      min-width: 0;
+      max-width: 720px;
+      margin-inline: auto;
       aspect-ratio: 16 / 9;
       overflow: hidden;
       background-color: #1b1420;
@@ -1072,16 +1071,16 @@ section {
     }
 
     .project-video {
-      position: absolute;
-      inset: 0;
       display: block;
       width: 100%;
       height: 100%;
+      min-width: 0;
       border: 0;
     }
 
     .project-video-gallery {
       display: grid;
+      min-width: 0;
       gap: 0.65rem;
 
       [hidden] {
@@ -1302,6 +1301,20 @@ section {
       transform: rotate(90deg);
     }
   }
+}
+
+.project-dialog::-webkit-scrollbar {
+  width: 5px;
+}
+.project-dialog::-webkit-scrollbar-track {
+  overflow: hidden;
+}
+.project-dialog::-webkit-scrollbar-thumb {
+  background-color: var(--orange);
+  cursor: grab;
+}
+.project-dialog::-webkit-scrollbar-thumb:hover {
+  background-color: var(--violet);
 }
 
 #tools {
@@ -1810,10 +1823,81 @@ footer {
     }
   }
 
+  #portfolio {
+    gap: 1.5rem;
+    padding: 3.5rem 1rem;
+
+    main {
+      width: 100%;
+
+      .project-container {
+        width: 100%;
+        max-width: 28rem;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+
+        .project {
+          max-width: none;
+          border-radius: 18px;
+
+          &:hover {
+            transform: none;
+            box-shadow: 0 16px 40px rgb(50 1 47 / 10%);
+          }
+
+          .project-contents {
+            gap: 0.9rem;
+            padding: 1rem;
+
+            h1 {
+              align-items: flex-start;
+              gap: 0.75rem;
+
+              .logo {
+                flex-basis: 2.75rem;
+                width: 2.75rem;
+                height: 2.75rem;
+                border-radius: 12px;
+              }
+
+              p {
+                min-width: 0;
+                font-size: 1rem;
+                overflow-wrap: anywhere;
+              }
+            }
+
+            p {
+              font-size: 0.9rem;
+            }
+
+            .techstack {
+              gap: 0.45rem;
+
+              .tech {
+                padding: 0.35rem 0.65rem;
+
+                span {
+                  font-size: 0.72rem;
+                }
+              }
+            }
+
+            button {
+              width: 100%;
+              min-height: 2.75rem;
+              align-self: stretch;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .project-dialog {
     width: calc(100vw - 1rem);
     max-height: calc(100dvh - 1rem);
-    border-radius: 18px;
 
     .project-modal-content {
       grid-template-columns: minmax(0, 1fr);
