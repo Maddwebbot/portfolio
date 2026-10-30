@@ -15,9 +15,9 @@
 :root {
   --black: #000;
   --violet: #32012f;
+  --orange: #f97300;
   --gray: #625a67;
   --white: #fff;
-  --orange: #f97300;
   --bg:
     radial-gradient(ellipse at 90% 85%, rgb(249 115 0 / 8%), transparent 32%),
     #f8f6f9;
@@ -518,6 +518,11 @@ section {
         }
       }
     }
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }
 #about {
